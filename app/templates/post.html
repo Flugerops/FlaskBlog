@@ -12,6 +12,7 @@
     <h2>{% block title %} {{ post.title }} {% endblock %}</h2>
     <span class="badge badge-primary">{{ post.created }}</span>
     <p>{{ post.content }}</p>
+    <a href="{{ url_for('edit_post', edit_id=post.id) }}">Edit Post</a>
     {% endblock %}
 
 </body>
