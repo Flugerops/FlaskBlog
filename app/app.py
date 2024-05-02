@@ -39,6 +39,7 @@ def _id(post_id):
 def create_get():
     return render_template('create.html')
 
+
 @app.post("/create")
 def create_post():
     title = request.form.get("title")
@@ -50,7 +51,7 @@ def create_post():
             post1 = Post(title=title, created=datetime.now(), content=content)
             session.add(post1)
         return redirect(url_for('index'))
-    return render_template('create.html')
+    return render_template('test.html')
 
 
 @app.get("/edit/<int:edit_id>")
@@ -59,7 +60,8 @@ def edit(edit_id):
     with Session.begin() as session:
         context["post"] = session.scalars(select(Post).where(Post.id == edit_id)).one()
     
-        return render_template('edit.html', **context)
+        return render_template('test.html', **context)
+
 
 @app.post("/edit/<int:edit_id>")
 def edit_post(edit_id):
@@ -72,6 +74,8 @@ def edit_post(edit_id):
     flash("Post updated successfully")
     return redirect(url_for('index'))
 
+
+
 @app.get("/edit/delete/<int:edit_id>")
 def delete_post(edit_id):
     with Session.begin() as session:
@@ -79,8 +83,9 @@ def delete_post(edit_id):
         if post is None:
             abort(404)
         session.delete(post)
-    flash("Post deleted successfully!")
-    return redirect(url_for('index'))
+        flash("Post deleted successfully!")
+        return redirect(url_for('index'))
+    
 
 
 if __name__ == "__main__":
