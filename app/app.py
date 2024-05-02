@@ -12,6 +12,8 @@ with Session.begin() as session:
     session.add(post1)
     post2 = Post(title="Test id 2", created=datetime.now(), content="MOCK DATA MOCK DATA MOCK DATA")
     session.add(post2)
+    post2 = Post(title="My Walk", created=datetime.now(), content="Now i having the best walk in my life!")
+    session.add(post2)
 
 @app.get("/")
 def index():
@@ -21,8 +23,8 @@ def index():
         return render_template("index.html", **context)
 
 
-@app.get("/<int:post_id>")
-def post(post_id):
+@app.get("/post/<int:post_id>")
+def _id(post_id):
     context = dict()
     with Session.begin() as session:
         
